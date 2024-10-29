@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hw_4/cubits/book_cubit.dart';
+import 'package:hw_4/bloc/book_bloc.dart';
 import 'package:hw_4/pages/home_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -12,16 +12,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    // Using Blocs for this homework
-    return BlocProvider(
-      create: (context) => BookCubit()..init(), 
-      child: MaterialApp(
-        title: 'Book Club App',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const HomePage(), 
+    return MaterialApp(
+      home: BlocProvider(
+        create: (context) => BookBloc(),
+        child: HomePage(),
       ),
     );
   }
