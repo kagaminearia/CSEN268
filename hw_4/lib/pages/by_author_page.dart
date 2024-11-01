@@ -13,23 +13,34 @@ class ByAuthorPage extends StatelessWidget {
     return BlocBuilder<BookBloc, BookState>(
       builder: (context, state) {
         List<Book> books = [];
+        
         if (state is BooksSortedByAuthor) {
           books = state.books;
+        } else if (state is BookLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is BookError) {
+          return const Center(child: Text("Failed to load books"));
         }
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Text(
-                  "By Author",
-                  style: TextStyle(fontSize: 24,),
+
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text("By Author"),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+              
+                Expanded(
+                  child: books.isNotEmpty
+                      ? BookListView(books: books)
+                      : const Center(child: Text("No books available")),
                 ),
-              ),
-              Expanded(child: BookListView(books: books)),
-            ],
-          );
-        // return BookListView(books: books); 
+              ],
+            ),
+          ),
+        );
       },
     );
   }

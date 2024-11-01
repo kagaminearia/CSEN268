@@ -10,3 +10,5 @@ abstract class BookEvent extends Equatable {
 class SortByTitle extends BookEvent {}
 
 class SortByAuthor extends BookEvent {}
+
+class LoadBooks extends BookEvent {}

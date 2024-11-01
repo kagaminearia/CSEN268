@@ -18,21 +18,17 @@ class BookBloc extends Bloc<BookEvent, BookState> {
     addBooks();
   }
 
-
   void _onSortbyAuthor(SortByAuthor event, Emitter<BookState> emit){
     books.sort((a, b) => a.author.compareTo(b.author));
     sortType = SortType.author;
     emit(BooksSortedByAuthor(List.from(books)));
   }
 
-
   void _onSortbyTitle(SortByTitle event, Emitter<BookState> emit){
     books.sort((a, b) => a.title.compareTo(b.title));
     sortType = SortType.title;
     emit(BooksSortedByTitle(List.from(books)));
   }
-
-
 
   void addBooks() {
     books = [
@@ -59,8 +55,6 @@ class BookBloc extends Bloc<BookEvent, BookState> {
     ];
     add(SortByAuthor()); 
   }
-
-  
 }
 
 

@@ -5,7 +5,7 @@ import 'package:hw_4/pages/book_detail_page.dart';
 class BookListView extends StatelessWidget {
   final List<Book> books;
 
-  const BookListView({required this.books, Key? key}) : super(key: key);
+  const BookListView({required this.books, super.key});
 
   @override
   Widget build(BuildContext context) {

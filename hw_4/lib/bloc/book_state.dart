@@ -27,3 +27,21 @@ class BooksSortedByTitle extends BookState {
   @override
   List<Object> get props => [books];
 }
+
+class BookLoaded extends BookState {
+  final List<Book> books;
+
+  const BookLoaded(this.books);
+
+  @override
+  List<Object> get props => [books];
+}
+
+class BookError extends BookState {
+  final String message;
+
+  const BookError(this.message);
+
+  @override
+  List<Object> get props => [message];
+}

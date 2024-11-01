@@ -7,14 +7,14 @@ import 'by_author_page.dart';
 import 'by_title_page.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-
-  final PageController _pageController = PageController();
 
   void _onItemTapped(int index) {
     setState(() {
@@ -25,53 +25,22 @@ class _HomePageState extends State<HomePage> {
     } else if (index == 1) {
       BlocProvider.of<BookBloc>(context).add(SortByTitle());
     }
-    _pageController.jumpToPage(index);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text("Books"),
-        ),
-        leading: IconButton(
-          icon: Icon(Icons.menu), // Menu icon on the left
-          onPressed: () {
-            // Implement your menu action here
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.account_circle_outlined), // Profile icon on the right
-            onPressed: () {
-              // Implement your profile action here
-            },
-          ),
-        ],
-        backgroundColor: Colors.purple[50], // Set the background color of the AppBar
+        title: const Text("Books"),
+        backgroundColor: Colors.purple[50],
       ),
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        children: [
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: const [
           ByAuthorPage(),
           ByTitlePage(),
           ProfilePage(),
         ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'By Author'),
-          BottomNavigationBarItem(icon: Icon(Icons.title), label: 'By Title'),
-          BottomNavigationBarItem(icon: Icon(Icons.build_circle_sharp), label: 'Profile'),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
       ),
     );
   }

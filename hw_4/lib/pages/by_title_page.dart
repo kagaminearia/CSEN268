@@ -19,8 +19,8 @@ class ByTitlePage extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(5.0),
+              const Padding(
+                padding: EdgeInsets.all(5.0),
                 child: Text(
                   "By Title",
                   style: TextStyle(fontSize: 24,),
