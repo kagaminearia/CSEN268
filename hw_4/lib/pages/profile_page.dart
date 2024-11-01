@@ -16,10 +16,6 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              "Profile page (need to implement later)",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {

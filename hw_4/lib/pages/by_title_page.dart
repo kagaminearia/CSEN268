@@ -13,23 +13,37 @@ class ByTitlePage extends StatelessWidget {
     return BlocBuilder<BookBloc, BookState>(
       builder: (context, state) {
         List<Book> books = [];
+        
         if (state is BooksSortedByTitle) {
           books = state.books;
+        } else if (state is BookLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is BookError) {
+          return const Center(child: Text("Failed to load books"));
         }
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(5.0),
-                child: Text(
-                  "By Title",
-                  style: TextStyle(fontSize: 24,),
+
+        return Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Text(
+                    "By Title",
+                    style: TextStyle(fontSize: 24),
+                  ),
                 ),
-              ),
-              Expanded(child: BookListView(books: books)),
-            ],
-          );
-        // return BookListView(books: books); 
+                Expanded(
+                  child: books.isNotEmpty
+                      ? BookListView(books: books)
+                      : const Center(child: Text("No books available")),
+                ),
+              ],
+            ),
+          ),
+        );
       },
     );
   }

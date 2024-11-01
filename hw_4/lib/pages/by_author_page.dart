@@ -23,15 +23,18 @@ class ByAuthorPage extends StatelessWidget {
         }
 
         return Scaffold(
-          appBar: AppBar(
-            title: const Text("By Author"),
-          ),
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              
+              const Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Text(
+                    "By Author",
+                    style: TextStyle(fontSize: 24),
+                  ),
+                ),
                 Expanded(
                   child: books.isNotEmpty
                       ? BookListView(books: books)

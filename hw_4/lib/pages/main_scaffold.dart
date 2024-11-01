@@ -1,9 +1,10 @@
-// lib/pages/main_scaffold.dart
-
 import 'package:flutter/material.dart';
-import 'home_page.dart';
-import 'by_author_page.dart';
-import 'profile_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hw_4/bloc/book_bloc.dart';
+import 'package:hw_4/bloc/book_event.dart';
+import 'package:hw_4/pages/by_author_page.dart';
+import 'package:hw_4/pages/by_title_page.dart';
+import 'package:hw_4/pages/profile_page.dart';
 
 class MainScaffold extends StatefulWidget {
   const MainScaffold({super.key});
@@ -16,15 +17,23 @@ class _MainScaffoldState extends State<MainScaffold> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    HomePage(),
-    ByAuthorPage(),
-    ProfilePage(),
+    const ByAuthorPage(),
+    const ByTitlePage(),
+    const ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+
+    if (index == 0) {
+      // Dispatch SortByAuthor event when "By Author" is selected
+      BlocProvider.of<BookBloc>(context).add(SortByAuthor());
+    } else if (index == 1) {
+      // Dispatch SortByTitle event when "By Title" is selected
+      BlocProvider.of<BookBloc>(context).add(SortByTitle());
+    }
   }
 
   @override
@@ -40,8 +49,8 @@ class _MainScaffoldState extends State<MainScaffold> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'By Author'),
+          BottomNavigationBarItem(icon: Icon(Icons.title), label: 'By Title'),
           BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Profile'),
         ],
         currentIndex: _selectedIndex,
