@@ -13,9 +13,7 @@ class BookBloc extends Bloc<BookEvent, BookState> {
   BookBloc() : super(BookLoading()) {
     on<SortByAuthor>(_onSortbyAuthor);
     on<SortByTitle>(_onSortbyTitle);
-
-    // Fill in the init() function
-    addBooks();
+    on<LoadBooks>(_onAddBooks);
   }
 
   void _onSortbyAuthor(SortByAuthor event, Emitter<BookState> emit){
@@ -30,6 +28,10 @@ class BookBloc extends Bloc<BookEvent, BookState> {
     emit(BooksSortedByTitle(List.from(books)));
   }
 
+  void _onAddBooks(LoadBooks event, Emitter<BookState> emit){
+    addBooks();
+  }
+  
   void addBooks() {
     books = [
       Book(
@@ -53,7 +55,9 @@ class BookBloc extends Bloc<BookEvent, BookState> {
         imageUrl: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1514989256i/37804539.jpg', 
         description: inviInfo),
     ];
-    add(SortByAuthor()); 
+    books.sort((a, b) => a.author.compareTo(b.author));
+    sortType = SortType.author;
+    emit(BooksSortedByAuthor(List.from(books)));
   }
 }
 
